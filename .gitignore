@@ -1,0 +1,47 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Diagnostic reports (Bugsnag, Sentry, etc.)
+diagnostic-reports
+diagnostic-reports/*
+
+# Dependency directories
+node_modules/
+/dist
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+# Optional files
+/coverage
+/build
+
+# Packages
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
+
+# Vite cache
+/.vite
