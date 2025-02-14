@@ -20,9 +20,9 @@ import { TabsContent } from '../ui/tabs'
 
 export const ControlAudienceSearch = () => {
     const computers = useAppSelector(selectorComputerItems)
-
     const [numberAud, setNumberAud] = useState('')
     const [interComputers, setInterComputers] = useState<IComputerData[]>()
+
     const renderFilterComps = useMemo(() => {
         if (interComputers) {
             return interComputers.map((obj) => (
@@ -37,6 +37,7 @@ export const ControlAudienceSearch = () => {
         const auditoryNumber = numberAud
         filterByAuditorium(auditoryNumber, computers, setInterComputers)
     }
+
     return (
         <TabsContent value="Аудитория">
             <Card className="flex flex-col md:flex-row">
@@ -53,6 +54,7 @@ export const ControlAudienceSearch = () => {
                             <div className="space-y-1">
                                 <Label htmlFor="name">Аудитория</Label>
                                 <Input
+                                    maxLength={3}
                                     value={numberAud}
                                     onChange={(e) =>
                                         setNumberAud(e.target.value)
