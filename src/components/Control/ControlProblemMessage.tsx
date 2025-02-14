@@ -10,7 +10,6 @@ import { Textarea } from '../ui/textarea'
 import { ValidationComponent } from '../ValidationComponent'
 import { TabsContent } from '../ui/tabs'
 
-// Форма для сообщение об ошибке
 
 type TProblemMessageForm = TSearchTabsForm & {
     textError: string
