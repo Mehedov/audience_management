@@ -4,8 +4,6 @@ import { useRef, useState } from 'react'
 import { ControlAudienceSearch } from './ControlAudienceSearch'
 import { ControlProblemMessage } from './ControlProblemMessage'
 
-// Разделение логики форм, типизация
-
 type SearchTabsProps = {
     computers: IComputerData[]
 }
@@ -25,8 +23,6 @@ export type TSearchTabsForm = {
     isSuccess: boolean
     validateProblemMessage: () => NodeJS.Timeout
 }
-
-// Разделение логики панели
 
 export function Control({ computers }: SearchTabsProps) {
     const [problemMessage, setProblemMessage] = useState<TProblemMessage>({
