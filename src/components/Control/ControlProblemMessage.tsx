@@ -1,32 +1,75 @@
+import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { setComputersItem } from '@/redux/slices/computer/slice'
-import { useAppDispatch } from '@/redux/store'
-import { FC, FormEvent } from 'react'
-import { TSearchTabsForm } from '../Control/Control'
+import { useAppDispatch, useAppSelector } from '@/redux/store'
+import { FC, FormEvent, MutableRefObject, useState } from 'react'
+
 import { Button } from '../ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card'
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from '../ui/card'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
+import { TabsContent } from '../ui/tabs'
 import { Textarea } from '../ui/textarea'
 import { ValidationComponent } from '../ValidationComponent'
-import { TabsContent } from '../ui/tabs'
 
-
-type TProblemMessageForm = TSearchTabsForm & {
-    textError: string
-    textSuccess: string
+type TControlProblemMessageProps = {
+    isError: boolean
+    setIsError: React.Dispatch<React.SetStateAction<boolean>>
+    setIsSuccess: React.Dispatch<React.SetStateAction<boolean>>
+    isSuccess: boolean
+    textError: MutableRefObject<string>
+    textSuccess: MutableRefObject<string>
 }
 
-export const ControlProblemMessage: FC<TProblemMessageForm> = ({
-    setProblemMessage,
-    problemMessage,
+type TProblemMessage = {
+    id: string
+    author: string
+    text: string
+}
+
+export const ControlProblemMessage: FC<TControlProblemMessageProps> = ({
     isError,
+    setIsError,
     isSuccess,
     textError,
     textSuccess,
     setIsSuccess,
-    validateProblemMessage,
 }) => {
     const dispatch = useAppDispatch()
+
+    const computers = useAppSelector(selectorComputerItems)
+    const [problemMessage, setProblemMessage] = useState<TProblemMessage>({
+        id: '',
+        author: '',
+        text: '',
+    })
+
+    const validateProblemMessage = () => {
+        const thereIdComputer = computers.find(
+            (obj) => obj.id === problemMessage.id
+        )
+
+        const isEmptyField =
+            !problemMessage.id || !problemMessage.author || !problemMessage.text
+
+        if (isEmptyField) {
+            setIsError(true)
+            textError.current = 'Все поля должны быть заполнены.'
+        } else if (!thereIdComputer) {
+            textError.current = 'Номер компьютера не найден'
+            setIsError(true)
+        }
+
+        return setTimeout(() => {
+            setIsError(false)
+        }, 2000)
+    }
 
     const onSendingMessage = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -111,8 +154,8 @@ export const ControlProblemMessage: FC<TProblemMessageForm> = ({
                             <ValidationComponent
                                 isError={isError}
                                 isSuccess={isSuccess}
-                                textError={textError}
-                                textSuccess={textSuccess}
+                                textError={textError.current}
+                                textSuccess={textSuccess.current}
                             />
                             <Button onClick={validateProblemMessage}>
                                 Отправить
