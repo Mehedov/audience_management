@@ -1,5 +1,3 @@
-'use client'
-
 import { Label, Pie, PieChart } from 'recharts'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -42,7 +40,7 @@ const chartConfig = {
 
 export function Component() {
     const computer = useAppSelector(selectorComputerItems)
-    const totalVisitors = computer.length
+    const totalVisitors = computer ? computer.length : 0
     const chartData = countStatusUtils(computer)
 
     return (
