@@ -17,6 +17,7 @@ import { Label } from '../ui/label'
 import { TabsContent } from '../ui/tabs'
 import { Textarea } from '../ui/textarea'
 import { ValidationComponent } from '../ValidationComponent'
+import { findComputerById } from '@/utils/find.utils'
 
 type TControlProblemMessageProps = {
     isError: boolean
@@ -51,9 +52,7 @@ export const ControlProblemMessage: FC<TControlProblemMessageProps> = ({
     })
 
     const validateProblemMessage = () => {
-        const thereIdComputer = computers.find(
-            (obj) => obj.id === problemMessage.id
-        )
+        const thereIdComputer = findComputerById(problemMessage.id, computers)
 
         const isEmptyField =
             !problemMessage.id || !problemMessage.author || !problemMessage.text
