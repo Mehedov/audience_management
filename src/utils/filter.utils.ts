@@ -6,6 +6,10 @@ export const filterByAuditorium = (
     callback: (newComputers: IComputerData[]) => void
 ) => {
     const newComputers = [...computers].filter((obj) => obj.auditorium === aud)
-    callback(newComputers)
-    return newComputers
+    if (newComputers.length) {
+        callback(newComputers)
+        return newComputers
+    } else {
+        throw new Error('Аудитория не найдена')
+    }
 }
