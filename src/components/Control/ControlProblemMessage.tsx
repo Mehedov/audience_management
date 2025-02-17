@@ -1,8 +1,9 @@
 import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { setComputersItem } from '@/redux/slices/computer/slice'
 import { useAppDispatch, useAppSelector } from '@/redux/store'
-import { FC, FormEvent, MutableRefObject, useState } from 'react'
+import { FC, FormEvent, useState } from 'react'
 
+import { findComputerById } from '@/utils/find.utils'
 import { Button } from '../ui/button'
 import {
     Card,
@@ -17,16 +18,9 @@ import { Label } from '../ui/label'
 import { TabsContent } from '../ui/tabs'
 import { Textarea } from '../ui/textarea'
 import { ValidationComponent } from '../ValidationComponent'
-import { findComputerById } from '@/utils/find.utils'
+import { TControlValidateElements } from './Control'
 
-type TControlProblemMessageProps = {
-    isError: boolean
-    setIsError: React.Dispatch<React.SetStateAction<boolean>>
-    setIsSuccess: React.Dispatch<React.SetStateAction<boolean>>
-    isSuccess: boolean
-    textError: MutableRefObject<string>
-    textSuccess: MutableRefObject<string>
-}
+type ControlProblemMessageProps = TControlValidateElements
 
 type TProblemMessage = {
     id: string
@@ -34,7 +28,7 @@ type TProblemMessage = {
     text: string
 }
 
-export const ControlProblemMessage: FC<TControlProblemMessageProps> = ({
+export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
     isError,
     setIsError,
     isSuccess,
