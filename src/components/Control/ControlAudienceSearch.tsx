@@ -26,7 +26,6 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
     isError,
     isSuccess,
     textError,
-    textSuccess,
     setIsError,
     setIsSuccess,
 }) => {
