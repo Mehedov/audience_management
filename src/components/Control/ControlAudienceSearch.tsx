@@ -2,7 +2,7 @@ import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { IComputerData } from '@/redux/slices/computer/slice'
 import { useAppSelector } from '@/redux/store'
 import { filterByAuditorium } from '@/utils/filter.utils'
-import { FormEvent, useMemo, useState } from 'react'
+import { FC, FormEvent, useMemo, useState } from 'react'
 import { ComputerItem } from '../ComputerItem'
 import { SearchComputersInfo } from '../SearchComputersInfo'
 import { Button } from '../ui/button'
@@ -17,8 +17,19 @@ import {
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { TabsContent } from '../ui/tabs'
+import { ValidationComponent } from '../ValidationComponent'
+import { TControlValidateElements } from './Control'
 
-export const ControlAudienceSearch = () => {
+type TControlAudienceSearchProps = TControlValidateElements
+
+export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
+    isError,
+    isSuccess,
+    textError,
+    textSuccess,
+    setIsError,
+    setIsSuccess,
+}) => {
     const computers = useAppSelector(selectorComputerItems)
     const [numberAud, setNumberAud] = useState('')
     const [interComputers, setInterComputers] = useState<IComputerData[]>()
@@ -32,10 +43,32 @@ export const ControlAudienceSearch = () => {
         return []
     }, [interComputers])
 
+    const validateSearchAuditories = () => {
+        if (!numberAud) {
+            setIsError(true)
+            textError.current = 'Введите номер аудитории.'
+        }
+
+        return setTimeout(() => {
+            setIsError(false)
+        }, 2000)
+    }
+
     const onSearchAuditories = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const auditoryNumber = numberAud
-        filterByAuditorium(auditoryNumber, computers, setInterComputers)
+        filterByAuditorium(
+            auditoryNumber,
+            computers,
+            setInterComputers,
+            setIsError,
+            textError
+        )
+        setIsSuccess(true)
+
+        return setTimeout(() => {
+            setIsSuccess(false)
+        }, 2000)
     }
 
     return (
@@ -63,9 +96,18 @@ export const ControlAudienceSearch = () => {
                                     required
                                 />
                             </div>
+                            <ValidationComponent
+                                isError={isError}
+                                isSuccess={isSuccess}
+                                textSuccess="Аудитория найдена."
+                                textError={textError.current}
+                            />
                         </CardContent>
+
                         <CardFooter>
-                            <Button>Посмотреть</Button>
+                            <Button onClick={validateSearchAuditories}>
+                                Посмотреть
+                            </Button>
                         </CardFooter>
                     </form>
                 </div>
