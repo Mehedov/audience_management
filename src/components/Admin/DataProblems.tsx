@@ -1,7 +1,7 @@
-import { selectorComputerItems } from '@/redux/slices/computer/selections'
-import { IComputerData } from '@/redux/slices/computer/slice'
-import { useAppSelector } from '@/redux/store'
-import { useMemo } from 'react'
+import {selectorComputerItems} from '@/redux/slices/computer/selections'
+import {IComputerData} from '@/redux/slices/computer/slice'
+import {useAppSelector} from '@/redux/store'
+import {useMemo} from 'react'
 import DataProblemsItem from './DataProblemsItem'
 
 export type TComputersInProblem = Required<IComputerData>
@@ -23,6 +23,7 @@ export const DataProblems = () => {
                 if (computer.message) {
                     return (
                         <DataProblemsItem
+                            key={computer.id}
                             message={computer.message}
                             id={computer.id}
                             auditorium={computer.auditorium}
