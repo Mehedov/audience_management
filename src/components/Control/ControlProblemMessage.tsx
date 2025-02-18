@@ -24,8 +24,7 @@ type ControlProblemMessageProps = TControlValidateElements
 
 type TProblemMessage = {
     id: string
-    author: string
-    text: string
+    message: string
 }
 
 export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
@@ -41,15 +40,13 @@ export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
     const computers = useAppSelector(selectorComputerItems)
     const [problemMessage, setProblemMessage] = useState<TProblemMessage>({
         id: '',
-        author: '',
-        text: '',
+        message: '',
     })
 
     const validateProblemMessage = () => {
         const thereIdComputer = findComputerById(problemMessage.id, computers)
 
-        const isEmptyField =
-            !problemMessage.id || !problemMessage.author || !problemMessage.text
+        const isEmptyField = !problemMessage.id || !problemMessage.message
 
         if (isEmptyField) {
             setIsError(true)
@@ -69,15 +66,13 @@ export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
         dispatch(
             setComputersItem({
                 id: problemMessage.id,
-                author: problemMessage.author,
-                text: problemMessage.text,
+                message: problemMessage.message,
             })
         )
         setIsSuccess(true)
         setProblemMessage({
             id: '',
-            author: '',
-            text: '',
+            message: '',
         })
         return setTimeout(() => {
             setIsSuccess(false)
@@ -111,23 +106,6 @@ export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
                                 required
                             />
                         </div>
-                        <div className="space-y-1">
-                            <Label htmlFor="current">
-                                Введите свое имя (фамилия, инициалы)
-                            </Label>
-                            <Input
-                                id="current"
-                                onChange={(e) =>
-                                    setProblemMessage((prev) => ({
-                                        ...prev,
-                                        author: e.target.value,
-                                    }))
-                                }
-                                value={problemMessage.author}
-                                type="text"
-                                required
-                            />
-                        </div>
                     </CardContent>
                     <CardFooter>
                         <div className="grid w-full gap-5">
@@ -136,10 +114,10 @@ export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
                                 onChange={(e) =>
                                     setProblemMessage((prev) => ({
                                         ...prev,
-                                        text: e.target.value,
+                                        message: e.target.value,
                                     }))
                                 }
-                                value={problemMessage.text}
+                                value={problemMessage.message}
                                 className="h-[50px]"
                                 placeholder="Опишите свою проблему"
                             />
