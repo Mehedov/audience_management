@@ -1,10 +1,10 @@
-import {ComputerMapItem} from '@/components/ComputerMapItem'
-import {SelectAuditories} from '@/components/SelectAuditories'
-import {selectorComputerItems} from '@/redux/slices/computer/selections'
-import {IComputerData} from '@/redux/slices/computer/slice'
-import {useAppSelector} from '@/redux/store'
-import {filterByAuditorium} from '@/utils/filter.utils'
-import {FC, useEffect, useMemo, useState} from 'react'
+import { ComputerMapItem } from '@/components/ComputerMapItem'
+import { SelectAuditories } from '@/components/SelectAuditories'
+import { selectorComputerItems } from '@/redux/slices/computer/selections'
+import { IComputerData } from '@/redux/slices/computer/slice'
+import { useAppSelector } from '@/redux/store'
+import { filterByAuditorium } from '@/utils/filter.utils'
+import { FC, useEffect, useMemo, useState } from 'react'
 
 const Map: FC = () => {
     const computers = useAppSelector(selectorComputerItems)
@@ -42,7 +42,7 @@ const Map: FC = () => {
                     </div>
                 </div>
                 <div>
-                    <SelectAuditories aud={aud} setAud={setAud}/>
+                    <SelectAuditories aud={aud} setAud={setAud} />
                 </div>
             </div>
             <div className="w-[700px] m-auto">
