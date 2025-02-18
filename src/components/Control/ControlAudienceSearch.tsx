@@ -50,7 +50,7 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
 
         return setTimeout(() => {
             setIsError(false)
-        }, 2000)
+        }, 1000)
     }
 
     const onSearchAuditories = (e: FormEvent<HTMLFormElement>) => {
@@ -67,7 +67,7 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
 
         return setTimeout(() => {
             setIsSuccess(false)
-        }, 2000)
+        }, 1000)
     }
 
     return (
