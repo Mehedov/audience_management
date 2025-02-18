@@ -36,7 +36,7 @@ export function ComputerMapItem({ ...props }: TComputerMapItemProps) {
             </PopoverTrigger>
             {props.message ? (
                 <PopoverContent className="p-0" side="right" align="start">
-                    <div className="p-3">{props.message.text}</div>
+                    <div className="p-3">{props.message}</div>
                 </PopoverContent>
             ) : null}
         </Popover>
