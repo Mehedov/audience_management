@@ -3,25 +3,37 @@ import {
     SelectContent,
     SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select"
+} from '@/components/ui/select'
+import { STATUSES } from '@/constants.ts'
 
-export function ChangeStatusSelect() {
+export function ChangeStatusSelect({ status }: { status: string }) {
     return (
         <Select>
-            <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a fruit"/>
+            <SelectTrigger className="w-[130px]">
+                <SelectValue placeholder={status} />
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel>Fruits</SelectLabel>
-                    <SelectItem value="apple">Apple</SelectItem>
-                    <SelectItem value="banana">Banana</SelectItem>
-                    <SelectItem value="blueberry">Blueberry</SelectItem>
-                    <SelectItem value="grapes">Grapes</SelectItem>
-                    <SelectItem value="pineapple">Pineapple</SelectItem>
+                    <SelectItem
+                        className=" text-[#06AB46]"
+                        value={STATUSES.work}
+                    >
+                        {STATUSES.work}
+                    </SelectItem>
+                    <SelectItem
+                        className="text-[hsl(var(--destructive))]"
+                        value={STATUSES.notWork}
+                    >
+                        {STATUSES.notWork}
+                    </SelectItem>
+                    <SelectItem
+                        className="text-[#f0aa48]"
+                        value={STATUSES.process}
+                    >
+                        {STATUSES.process}
+                    </SelectItem>
                 </SelectGroup>
             </SelectContent>
         </Select>
