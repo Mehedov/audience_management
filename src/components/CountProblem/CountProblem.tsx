@@ -11,7 +11,6 @@ import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { useAppSelector } from '@/redux/store'
 import { countStatusUtils } from '@/utils/countStatus.utils'
 
-
 const chartConfig = {
     visitors: {
         label: 'Visitors',
@@ -44,7 +43,7 @@ export function Component() {
     const chartData = countStatusUtils(computer)
 
     return (
-        <Card className="flex flex-col w-full md:w-[40%]">
+        <Card className="flex flex-col w-full md:w-[35%]">
             <CardHeader className="items-center pb-0">
                 <CardTitle>Общая статистика компьютеров</CardTitle>
             </CardHeader>
