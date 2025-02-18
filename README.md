@@ -1,50 +1,46 @@
-# React + TypeScript + Vite
+# Документация проекта
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Описание
 
-Currently, two official plugins are available:
+Данный проект представляет собой веб-приложение, разработанное с использованием React, TypeScript и Vite. Он предоставляет интерфейс для управления компьютерами в учебных аудиториях, включая возможность добавления, удаления и отображения статуса компьютеров.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Установка
 
-## Expanding the ESLint configuration
+1. Клонируйте репозиторий:
+   ```bash
+   git clone <URL_репозитория>
+   ```
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+2. Перейдите в директорию проекта:
+   ```bash
+   cd <имя_директории>
+   ```
 
-- Configure the top-level `parserOptions` property like this:
+3. Установите зависимости:
+   ```bash
+   npm install
+   ```
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+4. Создайте файл `.env` в корне проекта и добавьте переменную окружения для вашего API URL:
+   ```env
+   REACT_BASE_URL=https://example.com/api
+   ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+5. Запустите приложение в режиме разработки:
+   ```bash
+   npm run dev
+   ```
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Использование
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Основные функции
+
+- **Добавление компьютера**: Пользователи могут добавлять новые компьютеры, указывая их номер, статус и аудиторию.
+- **Удаление компьютера**: Пользователи могут удалять компьютеры по их номеру.
+- **Просмотр статуса**: Приложение отображает статус всех компьютеров в аудиториях, включая рабочие, нерабочие и находящиеся в процессе.
+
+### Страницы
+
+- **Главная страница** (`/`): Отображает интерфейс для управления компьютерами.
+- **Страница администратора** (`/admin`): Позволяет добавлять и удалять компьютеры.
+- **Страница карты** (`/map`): Отображает статус компьютеров по аудиториям.
