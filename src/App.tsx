@@ -16,7 +16,7 @@ export function App() {
         fetchComputers().then((data) => dispatch(setComputers(data)))
     }, [dispatch])
     return (
-        <div className="max-w-1400px w-[1000px] dark:border-neutral-700 border-[1px] rounded-lg">
+        <div className="max-w-1400px w-[1000px] mt-[100px] dark:border-neutral-700 border-[1px] rounded-lg">
             <Routes>
                 <Route path={routesConfig.home} element={<MainLayout />}>
                     <Route index element={<Home />} />
