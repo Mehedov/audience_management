@@ -58,7 +58,7 @@ export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
 
         return setTimeout(() => {
             setIsError(false)
-        }, 2000)
+        }, 1000)
     }
 
     const onSendingMessage = (e: FormEvent<HTMLFormElement>) => {
@@ -76,7 +76,7 @@ export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
         })
         return setTimeout(() => {
             setIsSuccess(false)
-        }, 2000)
+        }, 1000)
     }
 
     return (
