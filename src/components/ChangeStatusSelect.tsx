@@ -10,25 +10,25 @@ import {
     PopoverContent,
     PopoverTrigger,
 } from '@/components/ui/popover'
-import { COLORS, STATUSES } from '@/constants'
+import { COLORS, COMPUTER_STATUSES } from '@/constants'
 import { cn } from '@/lib/utils'
 import { Check, ChevronsUpDown } from 'lucide-react'
 import { Dispatch, useState } from 'react'
 
 const statuses = [
     {
-        value: STATUSES.work,
-        label: STATUSES.work,
+        value: COMPUTER_STATUSES.work,
+        label: COMPUTER_STATUSES.work,
         color: COLORS.green,
     },
     {
-        value: STATUSES.notWork,
-        label: STATUSES.notWork,
+        value: COMPUTER_STATUSES.notWork,
+        label: COMPUTER_STATUSES.notWork,
         color: COLORS.red,
     },
     {
-        value: STATUSES.process,
-        label: STATUSES.process,
+        value: COMPUTER_STATUSES.process,
+        label: COMPUTER_STATUSES.process,
         color: COLORS.yellow,
     },
 ]
