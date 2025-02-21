@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
-
-// Убрал message как обьект сделал стринговым значением ибо поле author не нужно
+import { FETCH_STATUSES } from '@/constants'
+import { fetchComputersItems } from '@/service/computer.service'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export interface IComputerData {
     id: string
@@ -11,10 +11,20 @@ export interface IComputerData {
 
 interface IStateTypes {
     computers: IComputerData[]
+    status: string
 }
+
+export const fetchComputers = createAsyncThunk(
+    'computers/fetchComputersStatus',
+    async (url: string) => {
+        const response = await fetchComputersItems(url)
+        return response
+    }
+)
 
 const initialState: IStateTypes = {
     computers: [],
+    status: FETCH_STATUSES.PENDING,
 }
 
 const computersSlice = createSlice({
@@ -36,15 +46,33 @@ const computersSlice = createSlice({
             })
         },
         setComputerStatus(state, action) {
-            state.computers.map(computer => {
+            state.computers.map((computer) => {
                 if (computer.id !== action.payload.id) return state.computers
-                if (computer.id === action.payload.id && action.payload.status) {
+                if (
+                    computer.id === action.payload.id &&
+                    action.payload.status
+                ) {
                     computer.status = action.payload.status
                 }
             })
         },
     },
+    extraReducers: (builder) => {
+        builder.addCase(fetchComputers.fulfilled, (state, action) => {
+            state.computers = action.payload
+            state.status = FETCH_STATUSES.FULFILLED
+        })
+        builder.addCase(fetchComputers.pending, (state) => {
+            state.computers = []
+            state.status = FETCH_STATUSES.PENDING
+        })
+        builder.addCase(fetchComputers.rejected, (state) => {
+            state.computers = []
+            state.status = FETCH_STATUSES.REJECTED
+        })
+    },
 })
 
-export const { setComputers, setComputersItem, setComputerStatus } = computersSlice.actions
+export const { setComputers, setComputersItem, setComputerStatus } =
+    computersSlice.actions
 export default computersSlice.reducer
