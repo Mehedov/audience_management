@@ -7,28 +7,28 @@
         },
         {
             "id": 5342,
-            "problem": "Не рабочий",
+            "status": "Не рабочий",
             "auditorium": 227
         },
         {
             "id": 6454,
-            "problem": "В процессе",
+            "status": "В процессе",
             "auditorium": 218
         },
         {
             "id": 1234,
-            "problem": "Рабочий",
+            "status": "Рабочий",
             "auditorium": 227
         },
         
         {
             "id": 2434,
-            "problem": "Рабочий",
+            "status": "Рабочий",
             "auditorium": 228
         },
         {
             "id": 2344,
-            "problem": "Не рабочий",
+            "status": "Не рабочий",
             "auditorium": 228
         }
     ]
