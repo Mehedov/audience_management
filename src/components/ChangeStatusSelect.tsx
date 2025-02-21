@@ -60,9 +60,9 @@ export const ChangeStatusSelect = ({
                     className="w-[130px] justify-between"
                 >
                     <span
-                        className={cn(
-                            `text-[${statusColor ? statusColor.color : ''}]`
-                        )}
+                        style={{
+                            color: `${statusColor ? statusColor.color : ''}`,
+                        }}
                     >
                         {currentStatus !== '' ? currentStatus : status}
                     </span>
@@ -78,7 +78,7 @@ export const ChangeStatusSelect = ({
                                 <CommandItem
                                     key={status.value}
                                     value={status.value}
-                                    className={cn(`text-[${status.color}]`)}
+                                    style={{ color: `${status.color}` }}
                                     onSelect={(currentValue) => {
                                         setCurrentStatus(
                                             currentValue === currentStatus
