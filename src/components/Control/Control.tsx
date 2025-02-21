@@ -12,6 +12,12 @@ export type TControlValidateElements = {
     textSuccess: MutableRefObject<string>
 }
 
+/**
+ * TODO:
+ *      - Возможно нужно будет кинуть все эти стейти в redux или глянуть
+ *      - Использование какой нибудь библиотеки для валидации данных
+ */
+
 export function Control() {
     const [isError, setIsError] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
