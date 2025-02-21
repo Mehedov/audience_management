@@ -46,5 +46,5 @@ const computersSlice = createSlice({
     },
 })
 
-export const { setComputers, setComputersItem } = computersSlice.actions
+export const { setComputers, setComputersItem, setComputerStatus } = computersSlice.actions
 export default computersSlice.reducer
