@@ -4,13 +4,7 @@ import { useAppSelector } from '@/redux/store'
 import { useMemo } from 'react'
 import DataProblemsItem from './DataProblemsItem'
 
-/**
- *  TODO:
- *      - Скорее всего поменяй структуру таблицы проблем
- *      - Возможно придется покапаться в расположении элементов в админке
- *      - Сделай норм отображение элементов в таблице
- *      - Возможно придется сменить подход к таблице и преподаватели эти нахуй не нужны
- */
+
 
 export type TComputersInProblem = Required<IComputerData>
 
