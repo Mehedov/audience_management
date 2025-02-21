@@ -1,8 +1,4 @@
-'use client'
-
 import { Check, ChevronsUpDown } from 'lucide-react'
-import * as React from 'react'
-
 import { Button } from '@/components/ui/button'
 import {
     Command,
@@ -18,7 +14,7 @@ import {
     PopoverTrigger,
 } from '@/components/ui/popover'
 import { cn } from '@/lib/utils'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 const auditories = [
     {
@@ -41,7 +37,7 @@ type TSelectAuditoriesProps = {
 }
 
 export function SelectAuditories({aud, setAud}:TSelectAuditoriesProps) {
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
