@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios'
 
-export const fetchComputers = async () => {
+export const fetchComputersItems = async (url:string) => {
     try {
-        const { data } = await axios.get(import.meta.env.REACT_BASE_URL)
+        const { data } = await axios.get(url)
         return data
     } catch (e) {
         // throw new Error((e as Error).message)
