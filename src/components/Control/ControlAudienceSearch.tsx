@@ -1,8 +1,9 @@
+import useSuccessMessage from '@/hooks/useSuccessMessage'
 import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { IComputerData } from '@/redux/slices/computer/slice'
 import { useAppSelector } from '@/redux/store'
 import { filterByAuditorium } from '@/utils/filter.utils'
-import { FC, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { ComputerItem } from '../ComputerItem'
 import { Input } from '../Input'
@@ -18,25 +19,22 @@ import {
 } from '../ui/card'
 import { TabsContent } from '../ui/tabs'
 import { ValidationComponent } from '../ValidationComponent'
-import { TControlValidateElements } from './Control'
 
-type TControlAudienceSearchProps = TControlValidateElements
-
-export type IFormValues = {
+export type TAudienceSearchValues = {
     aud: string
 }
 
-export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
-    isError,
-    isSuccess,
-    textError,
-    setIsError,
-    setIsSuccess,
-}) => {
+export const ControlAudienceSearch = () => {
     const computers = useAppSelector(selectorComputerItems)
     const [interComputers, setInterComputers] = useState<IComputerData[]>()
+    const { showSuccessMessage, triggerSuccessMessage } = useSuccessMessage()
 
-    const { register, handleSubmit } = useForm<IFormValues>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitSuccessful },
+        setError,
+    } = useForm<TAudienceSearchValues>({
         defaultValues: {
             aud: '',
         },
@@ -51,32 +49,20 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
         return []
     }, [interComputers])
 
-    const validateSearchAuditories = () => {
-        if (!numberAud) {
-            setIsError(true)
-            textError.current = 'Введите номер аудитории.'
-        }
-
-        return setTimeout(() => {
-            setIsError(false)
-        }, 2000)
-    }
-
-    const onSearchAuditories = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const auditoryNumber = numberAud
-        filterByAuditorium(
-            auditoryNumber,
-            computers,
-            setInterComputers,
-            setIsError,
-            textError
-        )
-        setIsSuccess(true)
-
-        return setTimeout(() => {
-            setIsSuccess(false)
-        }, 1000)
+    const onSearchAuditories: SubmitHandler<TAudienceSearchValues> = (
+        data,
+        event
+    ) => {
+        event?.preventDefault()
+        triggerSuccessMessage(() => {
+            const auditoryNumber = data.aud
+            filterByAuditorium(
+                auditoryNumber,
+                computers,
+                setInterComputers,
+                setError
+            )
+        })
     }
 
     return (
@@ -92,32 +78,20 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
                     </CardHeader>
                     <form onSubmit={handleSubmit(onSearchAuditories)}>
                         <CardContent className="space-y-2">
-                            <div className="space-y-1">
-                                {/* <Label htmlFor="aud">Аудитория</Label> */}
-                                {/* <Input
-                                    {...register('aud', {
-                                        required: true,
-                                        maxLength: 3,
-                                    })}
-                                    value={numberAud}
-                                    onChange={(e) =>
-                                        setNumberAud(e.target.value)
-                                    }
-                                    id="aud"
-                                    required
-                                /> */}
+                            <div className="space-y-3">
                                 <Input
                                     register={register}
                                     required
-                                    name='aud'
+                                    name="aud"
                                 />
                             </div>
-                            <ValidationComponent
-                                isError={isError}
-                                isSuccess={isSuccess}
-                                textSuccess="Аудитория найдена."
-                                textError={textError.current}
-                            />
+                            {showSuccessMessage ? (
+                                <ValidationComponent
+                                    errors={errors}
+                                    isSubmitSuccessful={isSubmitSuccessful}
+                                    showSuccessMessage={showSuccessMessage}
+                                />
+                            ) : null}
                         </CardContent>
 
                         <CardFooter>

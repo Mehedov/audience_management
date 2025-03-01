@@ -1,9 +1,12 @@
-import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { setComputersItem } from '@/redux/slices/computer/slice'
 import { useAppDispatch, useAppSelector } from '@/redux/store'
-import { FC, FormEvent, useState } from 'react'
 
+import useSuccessMessage from '@/hooks/useSuccessMessage'
+import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { findComputerById } from '@/utils/find.utils'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { Input } from '../Input'
+import { Textarea } from '../Textarea'
 import { Button } from '../ui/button'
 import {
     Card,
@@ -13,70 +16,48 @@ import {
     CardHeader,
     CardTitle,
 } from '../ui/card'
-import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { TabsContent } from '../ui/tabs'
-import { Textarea } from '../ui/textarea'
 import { ValidationComponent } from '../ValidationComponent'
-import { TControlValidateElements } from './Control'
 
-type ControlProblemMessageProps = TControlValidateElements
-
-type TProblemMessage = {
+type TProblemMessageValues = {
     id: string
     message: string
 }
 
-export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
-    isError,
-    setIsError,
-    isSuccess,
-    textError,
-    textSuccess,
-    setIsSuccess,
-}) => {
+export const ControlProblemMessage = () => {
     const dispatch = useAppDispatch()
+    const { showSuccessMessage, triggerSuccessMessage } = useSuccessMessage()
 
     const computers = useAppSelector(selectorComputerItems)
-    const [problemMessage, setProblemMessage] = useState<TProblemMessage>({
-        id: '',
-        message: '',
-    })
 
-    const validateProblemMessage = () => {
-        const thereIdComputer = findComputerById(problemMessage.id, computers)
-
-        const isEmptyField = !problemMessage.id || !problemMessage.message
-
-        if (isEmptyField) {
-            setIsError(true)
-            textError.current = 'Все поля должны быть заполнены.'
-        } else if (!thereIdComputer) {
-            textError.current = 'Номер компьютера не найден'
-            setIsError(true)
-        }
-
-        return setTimeout(() => {
-            setIsError(false)
-        }, 1000)
-    }
-
-    const onSendingMessage = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        dispatch(
-            setComputersItem({
-                id: problemMessage.id,
-                message: problemMessage.message,
-            })
-        )
-        setIsSuccess(true)
-        setProblemMessage({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isSubmitSuccessful },
+        setError,
+    } = useForm<TProblemMessageValues>({
+        defaultValues: {
             id: '',
             message: '',
+        },
+    })
+
+    const onSendingMessage: SubmitHandler<TProblemMessageValues> = (
+        data,
+        event
+    ) => {
+        event?.preventDefault()
+        triggerSuccessMessage(() => {
+            findComputerById(data.id, computers, setError)
+
+            dispatch(
+                setComputersItem({
+                    id: data.id,
+                    message: data.message,
+                })
+            )
         })
-        return setTimeout(() => {
-            setIsSuccess(false)
-        }, 1000)
     }
 
     return (
@@ -89,48 +70,31 @@ export const ControlProblemMessage: FC<ControlProblemMessageProps> = ({
                         отправить запрос на ее решение
                     </CardDescription>
                 </CardHeader>
-                <form onSubmit={(e) => onSendingMessage(e)}>
+                <form onSubmit={handleSubmit(onSendingMessage)}>
                     <CardContent className="space-y-2">
                         <div className="space-y-1">
                             <Label htmlFor="current">Номер компьютера</Label>
-                            <Input
-                                onChange={(e) =>
-                                    setProblemMessage((prev) => ({
-                                        ...prev,
-                                        id: e.target.value,
-                                    }))
-                                }
-                                id="current"
-                                value={problemMessage.id}
-                                type="text"
-                                required
-                            />
+                            <Input name="id" register={register} required />
                         </div>
                     </CardContent>
                     <CardFooter>
                         <div className="grid w-full gap-5">
                             <Textarea
+                                name="message"
+                                register={register}
                                 required
-                                onChange={(e) =>
-                                    setProblemMessage((prev) => ({
-                                        ...prev,
-                                        message: e.target.value,
-                                    }))
-                                }
-                                value={problemMessage.message}
                                 className="h-[50px]"
                                 placeholder="Опишите свою проблему"
                             />
 
-                            <ValidationComponent
-                                isError={isError}
-                                isSuccess={isSuccess}
-                                textError={textError.current}
-                                textSuccess={textSuccess.current}
-                            />
-                            <Button onClick={validateProblemMessage}>
-                                Отправить
-                            </Button>
+                            {showSuccessMessage ? (
+                                <ValidationComponent
+                                    errors={errors}
+                                    isSubmitSuccessful={isSubmitSuccessful}
+                                    showSuccessMessage={showSuccessMessage}
+                                />
+                            ) : null}
+                            <Button>Отправить</Button>
                         </div>
                     </CardFooter>
                 </form>
