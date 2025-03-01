@@ -1,9 +1,21 @@
 import { IComputerData } from '@/redux/slices/computer/slice'
+import { UseFormSetError } from 'react-hook-form'
 
-export const findComputerById = (id: string, computers: IComputerData[]) => {
-    if (id && computers) {
-        return computers.find((comp) => comp.id === id)
+export const findComputerById = (
+    id: string,
+    computers: IComputerData[],
+    setError: UseFormSetError<{ id: string }>
+) => {
+    const find = computers.find((comp) => comp.id === id)
+    if (find) {
+        return find
     } else {
-        throw new Error('Компьютер не найден')
+        setError('id', { type: 'manual', message: 'Компьютер не найден' })
+        if (id.length > 4) {
+            setError('id', {
+                type: 'manual',
+                message: 'Максимальное допустимое значение 4 символа',
+            })
+        }
     }
 }
