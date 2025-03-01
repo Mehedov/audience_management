@@ -2,8 +2,10 @@ import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { IComputerData } from '@/redux/slices/computer/slice'
 import { useAppSelector } from '@/redux/store'
 import { filterByAuditorium } from '@/utils/filter.utils'
-import { FC, FormEvent, useMemo, useState } from 'react'
+import { FC, useMemo, useState } from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { ComputerItem } from '../ComputerItem'
+import { Input } from '../Input'
 import { SearchComputersInfo } from '../SearchComputersInfo'
 import { Button } from '../ui/button'
 import {
@@ -14,13 +16,15 @@ import {
     CardHeader,
     CardTitle,
 } from '../ui/card'
-import { Input } from '../ui/input'
-import { Label } from '../ui/label'
 import { TabsContent } from '../ui/tabs'
 import { ValidationComponent } from '../ValidationComponent'
 import { TControlValidateElements } from './Control'
 
 type TControlAudienceSearchProps = TControlValidateElements
+
+export type IFormValues = {
+    aud: string
+}
 
 export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
     isError,
@@ -30,8 +34,13 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
     setIsSuccess,
 }) => {
     const computers = useAppSelector(selectorComputerItems)
-    const [numberAud, setNumberAud] = useState('')
     const [interComputers, setInterComputers] = useState<IComputerData[]>()
+
+    const { register, handleSubmit } = useForm<IFormValues>({
+        defaultValues: {
+            aud: '',
+        },
+    })
 
     const renderFilterComps = useMemo(() => {
         if (interComputers) {
@@ -50,7 +59,7 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
 
         return setTimeout(() => {
             setIsError(false)
-        }, 1000)
+        }, 2000)
     }
 
     const onSearchAuditories = (e: FormEvent<HTMLFormElement>) => {
@@ -81,18 +90,26 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
                             об компьютерах
                         </CardDescription>
                     </CardHeader>
-                    <form onSubmit={(e) => onSearchAuditories(e)}>
+                    <form onSubmit={handleSubmit(onSearchAuditories)}>
                         <CardContent className="space-y-2">
                             <div className="space-y-1">
-                                <Label htmlFor="name">Аудитория</Label>
-                                <Input
-                                    maxLength={3}
+                                {/* <Label htmlFor="aud">Аудитория</Label> */}
+                                {/* <Input
+                                    {...register('aud', {
+                                        required: true,
+                                        maxLength: 3,
+                                    })}
                                     value={numberAud}
                                     onChange={(e) =>
                                         setNumberAud(e.target.value)
                                     }
-                                    id="name"
+                                    id="aud"
                                     required
+                                /> */}
+                                <Input
+                                    register={register}
+                                    required
+                                    name='aud'
                                 />
                             </div>
                             <ValidationComponent
@@ -104,9 +121,7 @@ export const ControlAudienceSearch: FC<TControlAudienceSearchProps> = ({
                         </CardContent>
 
                         <CardFooter>
-                            <Button onClick={validateSearchAuditories}>
-                                Посмотреть
-                            </Button>
+                            <Button>Посмотреть</Button>
                         </CardFooter>
                     </form>
                 </div>
