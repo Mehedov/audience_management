@@ -1,12 +1,12 @@
 import { setComputersItem } from '@/redux/slices/computer/slice'
 import { useAppDispatch, useAppSelector } from '@/redux/store'
-
 import useSuccessMessage from '@/hooks/useSuccessMessage'
 import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { findComputerById } from '@/utils/find.utils'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Input } from '../Input'
 import { Textarea } from '../Textarea'
+import ToastWrapper from '../Toast/ToastWrapper'
 import { Button } from '../ui/button'
 import {
     Card,
@@ -18,7 +18,6 @@ import {
 } from '../ui/card'
 import { Label } from '../ui/label'
 import { TabsContent } from '../ui/tabs'
-import { ValidationComponent } from '../ValidationComponent'
 
 type TProblemMessageValues = {
     id: string
@@ -87,13 +86,11 @@ export const ControlProblemMessage = () => {
                                 placeholder="Опишите свою проблему"
                             />
 
-                            {showSuccessMessage ? (
-                                <ValidationComponent
-                                    errors={errors}
-                                    isSubmitSuccessful={isSubmitSuccessful}
-                                    showSuccessMessage={showSuccessMessage}
-                                />
-                            ) : null}
+                            <ToastWrapper
+                                errors={errors}
+                                isSubmitSuccessful={isSubmitSuccessful}
+                                showSuccessMessage={showSuccessMessage}
+                            />
                             <Button>Отправить</Button>
                         </div>
                     </CardFooter>

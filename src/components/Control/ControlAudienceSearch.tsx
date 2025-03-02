@@ -18,7 +18,7 @@ import {
     CardTitle,
 } from '../ui/card'
 import { TabsContent } from '../ui/tabs'
-import { ValidationComponent } from '../ValidationComponent'
+import ToastWrapper from '../Toast/ToastWrapper'
 
 export type TAudienceSearchValues = {
     aud: string
@@ -85,13 +85,11 @@ export const ControlAudienceSearch = () => {
                                     name="aud"
                                 />
                             </div>
-                            {showSuccessMessage ? (
-                                <ValidationComponent
-                                    errors={errors}
-                                    isSubmitSuccessful={isSubmitSuccessful}
-                                    showSuccessMessage={showSuccessMessage}
-                                />
-                            ) : null}
+                            <ToastWrapper
+                                errors={errors}
+                                isSubmitSuccessful={isSubmitSuccessful}
+                                showSuccessMessage={showSuccessMessage}
+                            />
                         </CardContent>
 
                         <CardFooter>
