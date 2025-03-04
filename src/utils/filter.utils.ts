@@ -13,9 +13,9 @@ export const filterByAuditorium = (
         callback(newComputers)
         return newComputers
     } else {
-        setError('aud', { type: 'manual', message: 'Аудитория не найдена' })
+        setError('auditorium', { type: 'manual', message: 'Аудитория не найдена' })
         if (aud.length > 4) {
-            setError('aud', {
+            setError('auditorium', {
                 type: 'manual',
                 message: 'Максимальное допустимое значение 4 символа',
             })
