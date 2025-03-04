@@ -1,3 +1,4 @@
+import { COLORS } from '@/constants'
 import { IComputerData } from '@/redux/slices/computer/slice'
 
 export const countStatusUtils = (computer: IComputerData[]) => {
@@ -15,17 +16,17 @@ export const countStatusUtils = (computer: IComputerData[]) => {
         {
             browser: 'Рабочие',
             visitors: countWorkStatus,
-            fill: '#06AB46',
+            fill: COLORS.green,
         },
         {
             browser: 'Не работают',
             visitors: countNotWorkStatus,
-            fill: 'hsl(var(--destructive))',
+            fill: COLORS.red,
         },
         {
             browser: 'В процессе',
             visitors: countProcessStatus,
-            fill: '#f0aa48',
+            fill: COLORS.yellow,
         },
     ]
 }
