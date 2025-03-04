@@ -11,6 +11,7 @@ import useSuccessMessage from '@/hooks/useSuccessMessage'
 import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { IComputerData, setComputers } from '@/redux/slices/computer/slice'
 import { useAppDispatch, useAppSelector } from '@/redux/store'
+import { checkStatusCorrect } from '@/utils/check.utils'
 import { findAudience, findComputerById } from '@/utils/find.utils'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Input } from '../Input'
@@ -50,8 +51,8 @@ export const AddingComputer = () => {
             }
             const there = findComputerById(data.id, computers)
             const thereAud = findAudience(data.auditorium, computers, setError)
-            console.log(there, thereAud)
-            if (!there && thereAud) {
+            const thereStatus = checkStatusCorrect(data.status, setError)
+            if (!there && thereAud && thereStatus) {
                 dispatch(setComputers([...computers, data]))
             } else {
                 setError('id', {
@@ -76,7 +77,7 @@ export const AddingComputer = () => {
                         </div>
                         <div className="space-y-1">
                             <Label htmlFor="status">
-                                Статус компьютера(Рабочий, не рабочий, в
+                                Статус компьютера(Рабочий, Не рабочий, В
                                 процессе)
                             </Label>
                             <Input name="status" register={register} required />
