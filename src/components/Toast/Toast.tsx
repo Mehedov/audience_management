@@ -51,6 +51,9 @@ export const Toast: FC<TValidation> = memo(
         if (errors.auditorium?.message) {
             return <ToastDestructive text={errors.auditorium.message.toString()} />
         }
+        if (errors.status?.message) {
+            return <ToastDestructive text={errors.status.message.toString()} />
+        }
         if (errors.id?.message) {
             return <ToastDestructive text={errors.id.message.toString()} />
         }
