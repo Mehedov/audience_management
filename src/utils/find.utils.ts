@@ -8,7 +8,7 @@ export const findComputerById = (
 ) => {
     const find = computers.find((comp) => comp.id === id)
     if (find) {
-        return find
+        return true
     } else {
         if (setError) {
             setError('id', { type: 'manual', message: 'Компьютер не найден' })
@@ -17,6 +17,24 @@ export const findComputerById = (
                     type: 'manual',
                     message: 'Максимальное допустимое значение 4 символа',
                 })
+                return false
         }
+        return false
+    }
+}
+export const findAudience = (
+    aud: string,
+    computers: IComputerData[],
+    setError: UseFormSetError<{ auditorium: string }>
+) => {
+    const find = computers.find((comp) => comp.auditorium === aud)
+    if (find) {
+        return true
+    } else {
+        setError('auditorium', {
+            type: 'manual',
+            message: 'Аудитория не найдена',
+        })
+        return false
     }
 }
