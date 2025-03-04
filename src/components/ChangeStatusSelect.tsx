@@ -67,7 +67,7 @@ export const ChangeStatusSelect = ({
                                     : COMPUTER_STATUSES.process
                             }`,
                         }}
-                        className="text-purple-700 font-bold"
+                        className="text-[#f0aa48] font-bold"
                     >
                         {currentStatus !== '' ? currentStatus : status}
                     </span>
