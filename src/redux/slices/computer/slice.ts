@@ -1,6 +1,6 @@
 import { FETCH_STATUSES } from '@/constants'
 import { fetchComputersItems } from '@/service/computer.service'
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface IComputerData {
     id: string
@@ -31,10 +31,13 @@ const computersSlice = createSlice({
     name: 'computers',
     initialState,
     reducers: {
-        setComputers(state, action) {
+        setComputers(state, action: PayloadAction<IComputerData[]>) {
             state.computers = action.payload
         },
-        setComputersItem(state, action) {
+        setComputersItem(
+            state,
+            action: PayloadAction<{ id: string; message: string }>
+        ) {
             state.computers.map((computer) => {
                 if (computer.id !== action.payload.id) return state.computers
 
@@ -45,7 +48,10 @@ const computersSlice = createSlice({
                 }
             })
         },
-        setComputerStatus(state, action) {
+        setComputerStatus(
+            state,
+            action: PayloadAction<{ id: string; status: string }>
+        ) {
             state.computers.map((computer) => {
                 if (computer.id !== action.payload.id) return state.computers
                 if (
@@ -58,10 +64,13 @@ const computersSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchComputers.fulfilled, (state, action) => {
-            state.computers = action.payload
-            state.status = FETCH_STATUSES.FULFILLED
-        })
+        builder.addCase(
+            fetchComputers.fulfilled,
+            (state, action: PayloadAction<IComputerData[]>) => {
+                state.computers = action.payload
+                state.status = FETCH_STATUSES.FULFILLED
+            }
+        )
         builder.addCase(fetchComputers.pending, (state) => {
             state.computers = []
             state.status = FETCH_STATUSES.PENDING
