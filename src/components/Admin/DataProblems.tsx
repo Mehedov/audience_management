@@ -4,8 +4,6 @@ import { useAppSelector } from '@/redux/store'
 import { useMemo } from 'react'
 import DataProblemsItem from './DataProblemsItem'
 
-
-
 export type TComputersInProblem = Required<IComputerData>
 
 export const DataProblems = () => {
@@ -51,7 +49,7 @@ export const DataProblems = () => {
         <div className="w-[60%] h-auto dark:border-neutral-700 border-[1px] rounded-md">
             <div className="w-full flex items-center dark:border-neutral-700 border-b-[1px] p-3 gap-5">
                 <div className="w-[18%] dark:text-neutral-400">Компьютер</div>
-                <div className="w-[60%] dark:text-neutral-400">Сообщение</div>
+                <div className="w-[50%] dark:text-neutral-400">Сообщение</div>
                 <div className="w-[12%] dark:text-neutral-400">Статус</div>
             </div>
             <div className="flex flex-col gap-2 overflow-y-hidden scrollable-container max-h-[478px] ">
