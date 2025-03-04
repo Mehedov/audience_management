@@ -48,8 +48,8 @@ export const ToastSuccess = memo(({ text }: TAlertProps) => {
 
 export const Toast: FC<TValidation> = memo(
     ({ errors, isSubmitSuccessful, showSuccessMessage }) => {
-        if (errors.aud?.message) {
-            return <ToastDestructive text={errors.aud.message.toString()} />
+        if (errors.auditorium?.message) {
+            return <ToastDestructive text={errors.auditorium.message.toString()} />
         }
         if (errors.id?.message) {
             return <ToastDestructive text={errors.id.message.toString()} />
