@@ -21,7 +21,7 @@ import { TabsContent } from '../ui/tabs'
 import ToastWrapper from '../Toast/ToastWrapper'
 
 export type TAudienceSearchValues = {
-    aud: string
+    auditorium: string
 }
 
 export const ControlAudienceSearch = () => {
@@ -36,7 +36,7 @@ export const ControlAudienceSearch = () => {
         setError,
     } = useForm<TAudienceSearchValues>({
         defaultValues: {
-            aud: '',
+            auditorium: '',
         },
     })
 
@@ -55,7 +55,7 @@ export const ControlAudienceSearch = () => {
     ) => {
         event?.preventDefault()
         triggerSuccessMessage(() => {
-            const auditoryNumber = data.aud
+            const auditoryNumber = data.auditorium
             filterByAuditorium(
                 auditoryNumber,
                 computers,
@@ -82,7 +82,7 @@ export const ControlAudienceSearch = () => {
                                 <Input
                                     register={register}
                                     required
-                                    name="aud"
+                                    name="auditorium"
                                 />
                             </div>
                             <ToastWrapper
