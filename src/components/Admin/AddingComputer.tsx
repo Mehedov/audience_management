@@ -11,7 +11,7 @@ import useSuccessMessage from '@/hooks/useSuccessMessage'
 import { selectorComputerItems } from '@/redux/slices/computer/selections'
 import { IComputerData, setComputers } from '@/redux/slices/computer/slice'
 import { useAppDispatch, useAppSelector } from '@/redux/store'
-import { findComputerById } from '@/utils/find.utils'
+import { findAudience, findComputerById } from '@/utils/find.utils'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Input } from '../Input'
 import ToastWrapper from '../Toast/ToastWrapper'
@@ -49,7 +49,9 @@ export const AddingComputer = () => {
                 })
             }
             const there = findComputerById(data.id, computers)
-            if (!there) {
+            const thereAud = findAudience(data.auditorium, computers, setError)
+            console.log(there, thereAud)
+            if (!there && thereAud) {
                 dispatch(setComputers([...computers, data]))
             } else {
                 setError('id', {
