@@ -13,7 +13,7 @@ import {
 import { COLORS, COMPUTER_STATUSES } from '@/constants'
 import { cn } from '@/lib/utils'
 import { Check, ChevronsUpDown } from 'lucide-react'
-import { Dispatch, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 const statuses = [
     {
@@ -36,7 +36,7 @@ const statuses = [
 type TChangeStatusSelectProps = {
     status: string
     currentStatus: string
-    setCurrentStatus: Dispatch<React.SetStateAction<string>>
+    setCurrentStatus: Dispatch<SetStateAction<string>>
 }
 
 export const ChangeStatusSelect = ({
@@ -47,7 +47,7 @@ export const ChangeStatusSelect = ({
     const [open, setOpen] = useState(false)
 
     const statusColor = statuses.find(
-        (currentStatus) => currentStatus.value === status
+        (status) => status.value === (currentStatus || status)
     )
 
     return (
@@ -61,8 +61,13 @@ export const ChangeStatusSelect = ({
                 >
                     <span
                         style={{
-                            color: `${statusColor ? statusColor.color : ''}`,
+                            color: `${
+                                statusColor
+                                    ? statusColor.color
+                                    : COMPUTER_STATUSES.process
+                            }`,
                         }}
+                        className="text-purple-700 font-bold"
                     >
                         {currentStatus !== '' ? currentStatus : status}
                     </span>
@@ -82,7 +87,7 @@ export const ChangeStatusSelect = ({
                                     onSelect={(currentValue) => {
                                         setCurrentStatus(
                                             currentValue === currentStatus
-                                                ? ''
+                                                ? currentStatus
                                                 : currentValue
                                         )
                                         setOpen(false)
