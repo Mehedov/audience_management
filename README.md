@@ -53,35 +53,35 @@
 ```json
 [
     {
-        "id": 42423,
+        "id": "42423",
         "status": "Рабочий",
-        "auditorium": 218
+        "auditorium": "218"
     },
     {
-        "id": 5342,
+        "id": "5342",
         "status": "Не рабочий",
-        "auditorium": 227
+        "auditorium": "227"
     },
     {
-        "id": 6454,
+        "id": "6454",
         "status": "В процессе",
-        "auditorium": 218
+        "auditorium": "218"
     },
     {
-        "id": 1234,
+        "id": "1234",
         "status": "Рабочий",
-        "auditorium": 227
+        "auditorium": "227"
     },
 
     {
-        "id": 2434,
+        "id": "2434",
         "status": "Рабочий",
-        "auditorium": 228
+        "auditorium": "228"
     },
     {
-        "id": 2344,
+        "id": "2344",
         "status": "Не рабочий",
-        "auditorium": 228
+        "auditorium": "228"
     }
 ]
 
